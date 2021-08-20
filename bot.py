@@ -1,3 +1,4 @@
+import datetime
 import discord
 from os import makedirs
 import shutil
@@ -12,6 +13,7 @@ intents.messages = True
 intents.guilds = True
 
 client = discord.Client(intents=intents)
+dt = datetime.datetime.now()
 
 
 def course_helper(text):
@@ -51,7 +53,7 @@ def course_helper(text):
 
 @client.event
 async def on_ready():
-    print('Logged in as {0.user}'.format(client))
+    print(f'Logged in as {client.user} at {dt.strftime("%Y/%m/%d %H:%M:%S")}')
     game = discord.Game('執法中')
     await client.change_presence(status=discord.Status.online, activity=game)
 
@@ -68,6 +70,8 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
+    print(message.content)
     if message.guild.name == '涓涓小教室':
         if message.content == '涓涓':
             await message.channel.send('是Ray可愛的小寶貝')
