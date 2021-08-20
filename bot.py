@@ -3,7 +3,8 @@ from os import makedirs
 import shutil
 from url_to_df import *
 
-TOKEN = 'ODc1NDE0OTYyOTM0MjY3OTc2.YRVLtw.lsuYe60cxlcGQ0NJFNJNw24Zswc'
+token_file = open('token.txt', 'r')
+TOKEN = token_file.read()
 
 intents = discord.Intents.default()
 intents.members = True
