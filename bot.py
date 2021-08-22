@@ -94,7 +94,7 @@ async def on_message(message):
                     print(e)
                     await message.channel.send('不知道為什麼反正錯了', e)
 
-            elif message.content.startswith('!reset'):
+            elif message.content.startswith('!reset') and '#4581' in message.author:
                 shutil.rmtree('./save_csv')
                 shutil.rmtree('./out')
                 await message.channel.send('Reset')
