@@ -1,4 +1,4 @@
-#!/usr/lib/python3.7
+#!/usr/bin/python3
 
 import datetime
 import discord
