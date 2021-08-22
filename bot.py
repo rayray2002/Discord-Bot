@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import datetime
 import discord
 from os import makedirs
@@ -72,18 +74,10 @@ async def on_message(message):
 
     print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
     print(message.content)
+
     if message.guild.name == '涓涓小教室':
         if message.content == '涓涓':
             await message.channel.send('是Ray可愛的小寶貝')
-
-        if message.channel.name == 'test':
-            if message.content.startswith('!course'):
-                try:
-                    file = course_helper(message.content)
-                    # await message.channel.send('成功')
-                    await message.channel.send(file=discord.File(file))
-                except:
-                    await message.channel.send('格式錯誤')
 
     elif message.guild.name == 'ouo':
         if message.channel.name == '隨便拉':
