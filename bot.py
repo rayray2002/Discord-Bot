@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/lib/python3.7
 
 import datetime
 import discord
@@ -6,7 +6,7 @@ from os import makedirs
 import shutil
 from url_to_df import *
 
-token_file = open('token.txt', 'r')
+token_file = open('./token.txt', 'r')
 TOKEN = token_file.read()
 
 intents = discord.Intents.default()
