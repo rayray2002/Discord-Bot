@@ -15,7 +15,6 @@ intents.messages = True
 intents.guilds = True
 
 client = discord.Client(intents=intents)
-dt = datetime.datetime.now()
 
 
 def course_helper(text):
@@ -55,6 +54,7 @@ def course_helper(text):
 
 @client.event
 async def on_ready():
+    dt = datetime.datetime.now()
     print(f'Logged in as {client.user} at {dt.strftime("%Y/%m/%d %H:%M:%S")}')
     game = discord.Game('執法中')
     await client.change_presence(status=discord.Status.online, activity=game)
@@ -72,6 +72,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    dt = datetime.datetime.now()
     print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
     print(message.content)
 
