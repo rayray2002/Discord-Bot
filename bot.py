@@ -106,7 +106,7 @@ async def on_message(message):
             await message.channel.send('噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓')
 
         if '嘎' in message.content:
-            await message.channel.send('臭甲')
+            await message.channel.send('<@!540149446596493359> 臭甲')
             with open('./img/gagalove.png', 'rb') as f:
                 picture = discord.File(f)
                 await message.channel.send(file=picture)
