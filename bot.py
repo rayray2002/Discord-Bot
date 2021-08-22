@@ -62,8 +62,8 @@ async def on_ready():
 
 banned = ['星爆', '星報', 'sao', '興報', '艾恩格朗特', '雜燴', '標槍', 'sbs', '876', 'kirito',
           'urst', '585', '師大巴士', '斬', '流擊', '封閉者', '同仁', '闡釋者', '心爆', '桐谷',
-          '核仁', '星和爆', '嘎', '砸慧', 'Sword', '閃耀', 'vu/', '化成', '刀劍神域', '流展',
-          '四方', '聖母', '幫我撐十秒', 'mmorpg', '@!556463593294528542', '@!699478459021524992',
+          '核仁', '星和爆', '砸慧', 'Sword', '閃耀', 'vu/', '化成', '刀劍神域', '流展', '四方',
+          '聖母', '幫我撐十秒', 'mmorpg', '@!556463593294528542', '@!699478459021524992',
           '十六', '和人', '封弊']
 
 
@@ -104,6 +104,9 @@ async def on_message(message):
 
         if message.content == '噓':
             await message.channel.send('噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓噓')
+
+        if '嘎' in message.content:
+            await message.channel.send('臭甲')
 
         text = ''.join(message.content.split(' '))
         for ban in banned:
