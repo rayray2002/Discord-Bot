@@ -107,6 +107,9 @@ async def on_message(message):
 
         if '嘎' in message.content:
             await message.channel.send('臭甲')
+            with open('./gagalove.png', 'rb') as f:
+                picture = discord.File(f)
+                await message.channel.send(file=picture)
 
         text = ''.join(message.content.split(' '))
         for ban in banned:
