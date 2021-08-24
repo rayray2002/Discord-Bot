@@ -72,6 +72,18 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.content.startswith('show'):
+        text = message.content[5:].lower()
+        for t in text:
+            if t == 'a':
+                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
+            elif t == ' ':
+                await message.channel.send(file=discord.File('./img/space.png'))
+            elif t == '?':
+                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-question.gif')
+            else:
+                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
+
     if message.guild.name == '精神時光屋':
         if message.channel.name == '正義魔人的頻道':
             if message.content.startswith('say') and '#4581' in str(message.author):
@@ -81,14 +93,6 @@ async def on_message(message):
     dt = datetime.datetime.now()
     print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
     print(message.content)
-
-    if message.content.startswith('show'):
-        text = message.content[5:].lower()
-        for t in text:
-            if t == 'a':
-                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
-            elif t != ' ':
-                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
 
     if message.guild.name == '涓涓小教室':
         if message.content == '涓涓':
