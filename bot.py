@@ -87,7 +87,7 @@ async def on_message(message):
         for t in text:
             if t == 'a':
                 await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
-            else:
+            elif t != ' ':
                 await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
 
     if message.guild.name == '涓涓小教室':
