@@ -73,14 +73,6 @@ async def on_message(message):
         return
 
     if message.guild.name == '精神時光屋':
-        if message.content.startswith('show'):
-            text = message.content[5:].lower()
-            for t in text:
-                if t == 'a':
-                    await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
-                else:
-                    await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
-
         if message.channel.name == '正義魔人的頻道':
             if message.content.startswith('say') and '#4581' in str(message.author):
                 await message.channel.send(message.content[4:])
@@ -89,6 +81,14 @@ async def on_message(message):
     dt = datetime.datetime.now()
     print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
     print(message.content)
+
+    if message.content.startswith('show'):
+        text = message.content[5:].lower()
+        for t in text:
+            if t == 'a':
+                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
+            else:
+                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
 
     if message.guild.name == '涓涓小教室':
         if message.content == '涓涓':
@@ -101,7 +101,6 @@ async def on_message(message):
             if message.content.startswith('!course'):
                 try:
                     file = course_helper(message.content)
-                    # await message.channel.send('成功')
                     await message.channel.send(file=discord.File(file))
                 except requests.exceptions.ConnectionError:
                     await message.channel.send('課程網死了')
