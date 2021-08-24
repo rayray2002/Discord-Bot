@@ -72,6 +72,20 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.guild.name == '精神時光屋':
+        if message.channel.name == '正義魔人的頻道':
+            if message.content.startswith('say') and '#4581' in str(message.author):
+                await message.channel.send(message.content[4:])
+
+            if message.content.startswith('show'):
+                text = message.content[5:].lower()
+                for t in text:
+                    if t == 'a':
+                        await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
+                    else:
+                        await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
+        return
+
     dt = datetime.datetime.now()
     print(f'{dt.strftime("%Y/%m/%d %H:%M:%S")}: {message.author} in {message.guild.name}')
     print(message.content)
