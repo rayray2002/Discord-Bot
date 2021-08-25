@@ -85,9 +85,9 @@ async def on_message(message):
                 await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
 
     if message.guild.name == '精神時光屋':
-        if message.channel.name == '正義魔人的頻道':
-            if message.content.startswith('say') and '#4581' in str(message.author):
-                await message.channel.send(message.content[4:])
+        # if message.channel.name == '正義魔人的頻道':
+        if message.content.startswith('say') and '#4581' in str(message.author):
+            await message.channel.send(message.content[4:])
         return
 
     dt = datetime.datetime.now()
@@ -114,7 +114,7 @@ async def on_message(message):
                     print(e)
                     await message.channel.send('不知道為什麼反正錯了', e)
 
-            elif message.content.startswith('!reset') and '#4581' in message.author:
+            elif message.content.startswith('!reset') and '#4581' in str(message.author):
                 shutil.rmtree('./save_csv')
                 shutil.rmtree('./out')
                 await message.channel.send('Reset')
@@ -124,9 +124,7 @@ async def on_message(message):
 
         if '嘎' in message.content:
             await message.channel.send('<@!540149446596493359> 臭甲')
-            with open('./img/gagalove.png', 'rb') as f:
-                picture = discord.File(f)
-                await message.channel.send(file=picture)
+            await message.channel.send(file=discord.File('./img/gagalove.png'))
 
         text = ''.join(message.content.split(' '))
         for ban in banned:
