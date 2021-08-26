@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import datetime
+import time
+
 import discord
 from os import makedirs
 import shutil
@@ -81,8 +83,11 @@ async def on_message(message):
                 await message.channel.send(file=discord.File('./img/space.png'))
             elif t == '?':
                 await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-question.gif')
+            elif 'b' <= t <= 'z':
+                await message.channel.send(f'https://play.pokemonshowdown.com/sprites/ani/unown-{t}.gif')
             else:
-                await message.channel.send('https://play.pokemonshowdown.com/sprites/ani/unown-' + t + '.gif')
+                await message.channel.send(t)
+            time.sleep(0.1)
 
     if message.guild.name == '精神時光屋':
         # if message.channel.name == '正義魔人的頻道':
