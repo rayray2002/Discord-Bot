@@ -117,7 +117,7 @@ async def on_message(message):
                     await message.channel.send('格式錯誤')
                 except Exception as e:
                     print(e)
-                    await message.channel.send('不知道為什麼反正錯了', e)
+                    await message.channel.send(f'不知道為什麼反正錯了, {e}')
 
             elif message.content.startswith('!reset') and '#4581' in str(message.author):
                 shutil.rmtree('./save_csv')
