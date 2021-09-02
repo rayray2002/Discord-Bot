@@ -115,6 +115,8 @@ async def on_message(message):
                     await message.channel.send('課程網死了')
                 except IndexError:
                     await message.channel.send('格式錯誤')
+                except ValueError:
+                    await message.channel.send('系所代碼錯誤')
                 except Exception as e:
                     print(e)
                     await message.channel.send(f'不知道為什麼反正錯了, {e}')
