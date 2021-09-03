@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,11 +16,11 @@ urls = ['http://140.112.161.154/regquery/Chinese.aspx',
         'http://140.112.161.154/regquery/Reqcou.aspx',
         'http://140.112.161.154/regquery/FreshmanSeminar.aspx',
         'http://140.112.161.154/regquery/Physical.aspx',
-        'http://140.112.161.154/regquery/MilTr.aspx']
+        'http://140.112.161.154/regquery/MilTr.aspx',]
 
 options = Options()
 options.add_argument('--headless')
-driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', options=options)
+driver = webdriver.Chrome('./chromedriver', options=options)
 
 for url in urls:
     print(url)
@@ -117,6 +115,7 @@ df_new = pd.DataFrame(data, columns=['流水號', '課號', '課程識別碼', '
                                      '限制條件', '人數上限', '外系上限', '外校上限', '已選上人數', '已選上外系人數', '登記人數', '剩餘名額'])
 df_new = df_new[['流水號', '人數上限', '外系上限', '外校上限', '已選上人數', '已選上外系人數', '登記人數', '剩餘名額']]
 print(df_new)
+df_new = df_new.drop_duplicates(subset=['流水號'], keep='last')
 df_new.to_csv('./save_csv/popularity.csv', encoding='utf-8-sig', index=False)
 
 for file in glob.iglob('./save_csv/' + '**/*' + '.csv', recursive=True):
