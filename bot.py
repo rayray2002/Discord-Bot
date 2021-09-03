@@ -123,6 +123,7 @@ async def on_message(message):
 
             elif message.content.startswith('!reset') and '#4581' in str(message.author):
                 shutil.rmtree('./save_csv')
+                shutil.rmtree('./new_csv')
                 shutil.rmtree('./out')
                 await message.channel.send('Reset')
 

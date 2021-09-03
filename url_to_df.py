@@ -13,33 +13,6 @@ class_map = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8'
              'C': 13, 'D': 14}
 
 
-def get_url(mode='系所', dpt='9010', sem='110-1', startrec=0):
-    if type(dpt) == int:
-        dpt = str(dpt)
-    if len(dpt) == 3:
-        dpt += '0'
-    if mode == '系所':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_02_dpt.php?alltime=yes&allproced=yes&selcode=-1&dptname=" + dpt + \
-               "&coursename&teachername&current_sem=" + sem + \
-               "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR2rwV0EENp6Yf5XmXrl1CGotWEXHtw2eBb-7gGFO-PbhjJCfYN3v1q_9sc"
-    elif mode == '通識':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_03_co.php?alltime=yes&allproced=yes&selcode=-1&coursename=&teachername=&current_sem=" + sem + "&yearcode=0&op=&startrec=0&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD=&allsel=yes&selCode1=&selCode2=&selCode3=&page_cnt=20000"
-    elif mode == '體育':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_09_gym.php?current_sem=" + sem + "&op=S&startrec=" + \
-               str(startrec) + "&cou_cname=&tea_cname=&year_code=2&checkbox=&checkbox2=&alltime=yes&allproced=yes&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD="
-    elif mode == '外文':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&couarea=7&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
-    elif mode == '共同':
-        return "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
-
-
-def get_soup(url, code='big5'):
-    response = requests.get(url)
-    response.encoding = code
-    soup = BeautifulSoup(response.text, "html.parser")
-    return soup
-
-
 def soup_to_df(soup):
     table_raw = soup.find('table', border="1", cellspacing="1", cellpadding="1", bordercolorlight="#CCCCCC",
                           bordercolordark="#CCCCCC")
@@ -66,9 +39,34 @@ def soup_to_df(soup):
     return df
 
 
-def url_to_df(mode='系所', dpt='9010', sem='110-1', startrec=0):
-    url = get_url(mode, dpt, sem, startrec)
-    soup = get_soup(url)
+def url_to_df(mode='9010', sem='110-1', startrec=0):
+    # get url
+    url = ''
+    if type(mode) == int:
+        mode = str(mode)
+    if len(mode) == 3:
+        mode += '0'
+
+    if mode == '通識':
+        url = "https://nol.ntu.edu.tw/nol/coursesearch/search_for_03_co.php?alltime=yes&allproced=yes&selcode=-1&coursename=&teachername=&current_sem=" + sem + "&yearcode=0&op=&startrec=0&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD=&allsel=yes&selCode1=&selCode2=&selCode3=&page_cnt=20000"
+    elif mode == '體育':
+        url = "https://nol.ntu.edu.tw/nol/coursesearch/search_for_09_gym.php?current_sem=" + sem + "&op=S&startrec=" + \
+              str(startrec) + "&cou_cname=&tea_cname=&year_code=2&checkbox=&checkbox2=&alltime=yes&allproced=yes&week1=&week2=&week3=&week4=&week5=&week6=&proced0=&proced1=&proced2=&proced3=&proced4=&procedE=&proced5=&proced6=&proced7=&proced8=&proced9=&procedA=&procedB=&procedC=&procedD="
+    elif mode == '外文':
+        url = "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&couarea=7&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
+    elif mode == '共同':
+        url = "https://nol.ntu.edu.tw/nol/coursesearch/search_for_01_major.php?alltime=yes&allproced=yes＆selcode=-1&coursename&teachername&current_sem=" + sem + "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR1rbn6rZfQM5ETlZRqXNvMN-Wg6ChCBduyccCxOPdDfzgOMIPclNcSJmnw"
+    else:
+        url = "https://nol.ntu.edu.tw/nol/coursesearch/search_for_02_dpt.php?alltime=yes&allproced=yes&selcode=-1&dptname=" + mode + \
+              "&coursename&teachername&current_sem=" + sem + \
+              "&yearcode=0&op&startrec=0&week1&week2&week3&week4&week5&week6&proced0&proced1&proced2&proced3&proced4&procedE&proced5&proced6&proced7&proced8&proced9&procedA&procedB&procedC&procedD&allsel=yes&selCode1&selCode2&selCode3&page_cnt=20000&fbclid=IwAR2rwV0EENp6Yf5XmXrl1CGotWEXHtw2eBb-7gGFO-PbhjJCfYN3v1q_9sc"
+
+    # get soup
+    response = requests.get(url)
+    response.encoding = 'big5'
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # soup to df
     df = soup_to_df(soup)
     return df
 
@@ -97,42 +95,47 @@ def get_field(df):
     return df
 
 
-def get_df(mode='系所', dpt='9010', sem='110-1', startrec=0):
-    df = url_to_df(mode, dpt, sem, startrec)
+def get_df(mode='9010', sem='110-1', startrec=0):
+    df = url_to_df(mode, sem, startrec)
     df = get_time(df)
     df = get_field(df)
     return df
 
 
-def save_csv(mode='系所', dpt='9010', sem='110-1'):
-    if mode == '系所':
-        name = dpt
-    else:
-        name = mode
-
+def save_csv(mode='系所', sem='110-1'):
     if mode == '體育':
-        df = get_df(mode, dpt, sem, 0)
+        df = get_df(mode, sem, 0)
         for i in range(15, 210, 15):
-            df = df.append(get_df(mode, dpt, sem, i), ignore_index=True, sort=False)
+            df = df.append(get_df(mode, sem, i), ignore_index=True, sort=False)
     else:
-        df = get_df(mode, dpt, sem)
-    df.to_csv('./save_csv/' + name + '.csv', encoding='utf-8-sig', index=0)
+        df = get_df(mode, sem)
+    df.to_csv('./save_csv/' + mode + '.csv', encoding='utf-8-sig', index=0)
+
+
+def read_csv(name):
+    if not path.exists(f'save_csv/{name}.csv'):
+        save_csv(mode=name)
+    if path.exists(f'new_csv/{name}.csv'):
+        df = pd.read_csv(f'new_csv/{name}.csv')
+    else:
+        df = pd.read_csv(f'save_csv/{name}.csv')
+    return df
 
 
 def prefered_cols(df, cols=None):
     if cols is None:
-        try:
-            df['必/選修']
+        if '必/選修' in df.columns:
             cols = ['流水號', '課程名稱', '學分', '全/半年', '必/選修', '授課教師', '加選方式', '時間教室', '總人數', '選課限制條件', '備註']
-        except:
+        else:
             cols = ['流水號', '課程名稱', '學分', '全/半年', '授課教師', '加選方式', '時間教室', '總人數', '選課限制條件', '備註']
+
+    if '登記人數' in df.columns:
+        cols += ['人數上限', '登記人數', '剩餘名額']
     return df[cols]
 
 
 def general_filter(name, writer, schedule, fields):
-    if not path.exists('save_csv/通識.csv'):
-        save_csv(mode='通識')
-    df = pd.read_csv('save_csv/通識.csv')
+    df = read_csv('通識')
 
     for i in range(7):
         for j in range(15):
@@ -152,15 +155,13 @@ def general_filter(name, writer, schedule, fields):
 def department_filter(name, dpt, writer, schedule):
     if type(dpt) == int:
         dpt = str(dpt)
-    if not path.exists('save_csv/' + dpt + '.csv'):
-        save_csv(mode='系所', dpt=dpt)
-    df = pd.read_csv('save_csv/' + dpt + '.csv')
+    df = read_csv(dpt)
 
     for i in range(7):
         for j in range(15):
             if schedule[i][j]:
                 df.drop(df[df['time_' + str(i) + '_' + str(j)] == 1].index, inplace=True)
-    df.drop(df[df['課程名稱'].str.contains('服務學習三|服務學習甲|服務學習乙|服務學習一|服務學習二|專題研究', regex=1)].index, inplace=True)
+    df.drop(df[df['課程名稱'].str.contains('服務學習|專題研究', regex=1)].index, inplace=True)
 
     df = prefered_cols(df)
     sf = StyleFrame(df)
@@ -171,13 +172,8 @@ def department_filter(name, dpt, writer, schedule):
 
 
 def language_filter(name, writer, schedule):
-    if not path.exists('save_csv/共同.csv'):
-        save_csv(mode='共同')
-    df1 = pd.read_csv('save_csv/共同.csv')
-
-    if not path.exists('save_csv/外文.csv'):
-        save_csv(mode='外文')
-    df2 = pd.read_csv('save_csv/外文.csv')
+    df1 = read_csv('共同')
+    df2 = read_csv('外文')
 
     df = df1.append(df2, ignore_index=True, sort=False)
     # print(df)
@@ -197,9 +193,7 @@ def language_filter(name, writer, schedule):
 
 
 def pe_filter(name, writer, schedule):
-    if not path.exists('save_csv/體育.csv'):
-        save_csv(mode='體育')
-    df = pd.read_csv('save_csv/體育.csv')
+    df = read_csv('體育')
 
     for i in range(7):
         for j in range(15):
@@ -217,15 +211,12 @@ def pe_filter(name, writer, schedule):
 if __name__ == "__main__":
     # print(get_url(mode='通識'))
     # print(url_to_df(mode='通識'))
-    # print(url_to_df(mode='系所', dpt='9010'))
-    # print(url_to_df(mode='體育'))
+    # print(url_to_df(mode='9010'))
+    print(url_to_df(mode='體育'))
     # print(url_to_df(mode='所有'))
 
-    # pd.set_option('display.max_columns', None)
-    # df = get_df(mode='系所')
-    # print(df.head())
-    # save_csv(mode='系所', dpt='9010')
-    save_csv(mode='系所', dpt='4090')
-    # save_csv(mode='通識')
-    # save_csv(mode='體育')
-    print(get_url(mode='系所', dpt='4090'))
+    pd.set_option('display.max_columns', None)
+    save_csv(mode='9010')
+    save_csv(mode='9020')
+    save_csv(mode='通識')
+    save_csv(mode='體育')
