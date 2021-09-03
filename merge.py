@@ -10,10 +10,10 @@ def main():
             continue
         print(file)
         df_old = pd.read_csv(file)
-        df_old['流水號'] = df_old['流水號'].fillna(0).astype(str)
+        df_old['流水號'] = df_old['流水號'].fillna(0).astype(int)
         # print(df_old.head())
 
-        df_new = df_new.astype(str)
+        df_new = df_new.astype(int)
 
         df = pd.merge(df_old, df_new, on='流水號', how='left')
         df = df.drop_duplicates(subset=['流水號'], keep='last')
