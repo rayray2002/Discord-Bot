@@ -16,11 +16,11 @@ urls = ['http://140.112.161.154/regquery/Chinese.aspx',
         'http://140.112.161.154/regquery/Reqcou.aspx',
         'http://140.112.161.154/regquery/FreshmanSeminar.aspx',
         'http://140.112.161.154/regquery/Physical.aspx',
-        'http://140.112.161.154/regquery/MilTr.aspx',]
+        'http://140.112.161.154/regquery/MilTr.aspx']
 
 options = Options()
 options.add_argument('--headless')
-driver = webdriver.Chrome('./chromedriver', options=options)
+driver = webdriver.Chrome('/usr/lib/chromium-browser/chromedriver', options=options)
 
 for url in urls:
     print(url)
