@@ -18,4 +18,6 @@ async def test(ctx: SlashContext):
     await ctx.send(content="test", embeds=[embed])
 
 
-bot.run("ODc1NDE0OTYyOTM0MjY3OTc2.YRVLtw.VsBiyXCeNlgSpFk71K8RH2GBLZw")
+token_file = open('./token.txt', 'r')
+TOKEN = token_file.read()
+bot.run(TOKEN)
