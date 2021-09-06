@@ -6,6 +6,7 @@ import discord
 from os import makedirs
 import shutil
 from discord.ext import commands
+from discord_slash import SlashCommand, SlashContext
 from url_to_df import *
 
 token_file = open('./token.txt', 'r')
@@ -19,8 +20,9 @@ banned = ['星爆', '星報', 'sao', '興報', '艾恩格朗特', '雜燴', '標
 USER_ID = {'ray': 540149116374614016, 'justin': 540149446596493359, 'pg': 556463593294528542, '標槍': 699478459021524992}
 SERVER_ID = {'poke': 878300201541062656, 'jennifer': 843761765174607882, 'ouo': 679353041165746176}
 
-PREFIX = '&'
-bot = commands.Bot(command_prefix=PREFIX)
+PREFIX = '!'
+bot = commands.Bot(command_prefix=PREFIX, intents=discord.Intents.all())
+slash = SlashCommand(bot)
 
 
 @bot.event
@@ -64,6 +66,12 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
+@slash.slash(name="test")
+async def _test(ctx: SlashContext):
+    embed = discord.Embed(title="embed test")
+    await ctx.send(content="test", embeds=[embed])
+
+
 @bot.command()
 async def say(ctx, arg):
     if ctx.message.author.id == USER_ID['ray']:
@@ -92,17 +100,16 @@ async def course(ctx, *, arg):
         makedirs('./save_csv')
 
     lines = arg.split('\n')
-
+    schedule = [[0] * 15 for i in range(7)]
     try:
         name = lines[0]
         fields = lines[1]
-        schedule = [[0] * 15 for i in range(7)]
         for i in range(2, 9):
             raw = lines[i]
             if len(raw) > 1:
                 periods = raw[1:].split(',')
                 for period in periods:
-                    schedule[i - 3][class_map[period.strip()]] = 1
+                    schedule[i - 2][class_map[period.strip()]] = 1
         dpts = []
         for i in range(9, len(lines)):
             dpts.append(lines[i])

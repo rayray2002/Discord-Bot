@@ -1,33 +1,21 @@
 import discord
-import time
 from discord.ext import commands
+from discord_slash import SlashCommand, SlashContext
 
-token_file = open('./token.txt', 'r')
-TOKEN = token_file.read()
-
-client = discord.Client()
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+slash = SlashCommand(bot, sync_commands=True)
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'Logged in as {client.user}')
-    game = discord.Game('執法中')
-    await client.change_presence(status=discord.Status.online, activity=game)
+    print(f'Logged in as {bot.user}')
 
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    print(message.content)
+@slash.slash(name="test", description="Sends message.")
+async def test(ctx: SlashContext):
+    print('test')
+    embed = discord.Embed(title="embed test")
+    await ctx.send(content="test", embeds=[embed])
 
 
-@bot.command()
-async def foo(ctx, arg):
-    print('foo')
-    await ctx.send(arg)
-
-
-# client.run(TOKEN)
-bot.run(TOKEN)
+bot.run("ODc1NDE0OTYyOTM0MjY3OTc2.YRVLtw.VsBiyXCeNlgSpFk71K8RH2GBLZw")
