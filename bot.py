@@ -351,11 +351,11 @@ async def _course_run(ctx):
         schedule.append([int(s) for s in config['schedule'][f'{i}'].split(',')])
     dpts = config['general']['department'].split(',')
     # print(name, fields, schedule, dpts)
-    # await ctx.send('執行中')
+    await ctx.send('執行中')
 
-    if not path.exists('./out/' + name + '.xlsx'):
-        open('./out/' + name + '.xlsx', 'w')
-    writer = pd.ExcelWriter('./out/' + name + '.xlsx')
+    if not path.exists(f'./out/{name}.xlsx'):
+        open(f'./out/{name}.xlsx', 'w')
+    writer = pd.ExcelWriter(f'./out/{name}.xlsx')
 
     try:
         general_filter(name, writer, schedule, fields)
