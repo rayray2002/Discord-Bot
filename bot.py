@@ -249,7 +249,7 @@ async def on_component(ctx: ComponentContext):
         config['schedule'][info[2]] = ','.join(['1' if str(i) in ctx.selected_options else '0' for i in range(15)])
         with open(f'configs/{info[1]}.ini', 'w') as f:
             config.write(f)
-            await ctx.send('設定完成')
+            await ctx.edit('設定完成')
 
     if 'field' in ctx.component['custom_id']:
         # print(ctx.selected_options)
@@ -351,7 +351,7 @@ async def _course_run(ctx):
         schedule.append([int(s) for s in config['schedule'][f'{i}'].split(',')])
     dpts = config['general']['department'].split(',')
     # print(name, fields, schedule, dpts)
-    await ctx.send('執行中')
+    msg = await ctx.send('執行中')
 
     if not path.exists(f'./out/{name}.xlsx'):
         open(f'./out/{name}.xlsx', 'w')
@@ -378,7 +378,7 @@ async def _course_run(ctx):
 
     writer.save()
     print(f'{name}.xlsx save success')
-    await ctx.send(file=discord.File(f'./out/{name}.xlsx'))
+    await msg.edit(file=discord.File(f'./out/{name}.xlsx'))
 
 
 @slash.slash(name='reset',
