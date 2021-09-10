@@ -391,58 +391,58 @@ async def _reset(ctx):
         await ctx.send('Reset')
 
 
-# @bot.command()
-# async def course(ctx, *, arg):
-#     if not path.exists('./out'):
-#         os.makedirs('./out')
-#     if not path.exists('./save_csv'):
-#         os.makedirs('./save_csv')
-#
-#     lines = arg.split('\n')
-#     schedule = [[0] * 15 for i in range(7)]
-#     try:
-#         name = lines[0]
-#         fields = lines[1]
-#         for i in range(2, 9):
-#             raw = lines[i]
-#             if len(raw) > 1:
-#                 periods = raw[1:].split(',')
-#                 for period in periods:
-#                     schedule[i - 2][class_map[period.strip()]] = 1
-#         dpts = []
-#         for i in range(9, len(lines)):
-#             dpts.append(lines[i])
-#         print(name + ' imported')
-#
-#     except IndexError:
-#         await ctx.send('格式錯誤')
-#         return
-#
-#     if not path.exists('./out/' + name + '.xlsx'):
-#         open('./out/' + name + '.xlsx', 'w')
-#     writer = pd.ExcelWriter('./out/' + name + '.xlsx')
-#
-#     try:
-#         general_filter(name, writer, schedule, fields)
-#         language_filter(name, writer, schedule)
-#         pe_filter(name, writer, schedule)
-#         for dpt in dpts:
-#             department_filter(name, dpt, writer, schedule)
-#
-#     except requests.exceptions.ConnectionError:
-#         await ctx.send('課程網死了')
-#         return
-#     except ValueError:
-#         await ctx.send('系所代碼錯誤')
-#         return
-#     except Exception as e:
-#         print(e)
-#         await ctx.send(f'不知道為什麼反正錯了, {e}')
-#         return
-#
-#     writer.save()
-#     print(f'{name}.xlsx save success')
-#     await ctx.send(file=discord.File(f'./out/{name}.xlsx'))
+@bot.command()
+async def course(ctx, *, arg):
+    if not path.exists('./out'):
+        os.makedirs('./out')
+    if not path.exists('./save_csv'):
+        os.makedirs('./save_csv')
+
+    lines = arg.split('\n')
+    schedule = [[0] * 15 for i in range(7)]
+    try:
+        name = lines[0]
+        fields = lines[1]
+        for i in range(2, 9):
+            raw = lines[i]
+            if len(raw) > 1:
+                periods = raw[1:].split(',')
+                for period in periods:
+                    schedule[i - 2][class_map[period.strip()]] = 1
+        dpts = []
+        for i in range(9, len(lines)):
+            dpts.append(lines[i])
+        print(name + ' imported')
+
+    except IndexError:
+        await ctx.send('格式錯誤')
+        return
+
+    if not path.exists('./out/' + name + '.xlsx'):
+        open('./out/' + name + '.xlsx', 'w')
+    writer = pd.ExcelWriter('./out/' + name + '.xlsx')
+
+    try:
+        general_filter(name, writer, schedule, fields)
+        language_filter(name, writer, schedule)
+        pe_filter(name, writer, schedule)
+        for dpt in dpts:
+            department_filter(name, dpt, writer, schedule)
+
+    except requests.exceptions.ConnectionError:
+        await ctx.send('課程網死了')
+        return
+    except ValueError:
+        await ctx.send('系所代碼錯誤')
+        return
+    except Exception as e:
+        print(e)
+        await ctx.send(f'不知道為什麼反正錯了, {e}')
+        return
+
+    writer.save()
+    print(f'{name}.xlsx save success')
+    await ctx.send(file=discord.File(f'./out/{name}.xlsx'))
 
 
 token_file = open('./token.txt', 'r')
