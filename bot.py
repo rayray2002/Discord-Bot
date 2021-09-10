@@ -200,8 +200,8 @@ async def _course_schedule(ctx, 星期):
             create_select_option("10", value="10", emoji="🔟"),
             create_select_option("A", value="11", emoji="🅰️"),
             create_select_option("B", value="12", emoji="🅱️"),
-            create_select_option("C", value="13", emoji="🅲"),
-            create_select_option("D", value="14", emoji="🅳"),
+            create_select_option("C", value="13"),
+            create_select_option("D", value="14"),
         ],
         placeholder="設定課表",  # the placeholder text to show when no options have been chosen
         custom_id=f'schedule-{ctx.author.id}-{星期}',
