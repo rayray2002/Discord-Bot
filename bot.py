@@ -74,6 +74,20 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
+@slash.slash(name='help',
+             description='How help')
+async def _help(ctx):
+    embed = discord.Embed()
+    embed.set_author(name="正義魔人 - 台大選課小幫手")
+    embed.add_field(name="/course schedule", value="設定課表", inline=False)
+    embed.add_field(name="/course field", value="設定通識領域", inline=False)
+    embed.add_field(name="/course profile", value="顯示目前個人資訊", inline=False)
+    embed.add_field(name="/course run", value="輸出結果", inline=False)
+    embed.add_field(name="/course name", value="設定名字", inline=False)
+    embed.set_footer(text="台大選課小幫手")
+    await ctx.send(embed=embed)
+
+
 @slash.slash(name='say',
              description='Say Something')
 async def _say(ctx, text):
