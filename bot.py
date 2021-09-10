@@ -75,12 +75,12 @@ async def on_message(message):
 
 
 @slash.slash(name='help',
-             description='How help')
+             description='Show help')
 async def _help(ctx):
     embed = discord.Embed(title="台大選課小幫手")
     embed.set_author(name="正義魔人", icon_url=bot.user.avatar_url)
-    embed.set_thumbnail(
-        url="https://upload.wikimedia.org/wikipedia/zh/thumb/4/4c/National_Taiwan_University_logo.svg/1200px-National_Taiwan_University_logo.svg.png")
+    embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/zh/thumb/4/4c/"
+                            "National_Taiwan_University_logo.svg/1200px-National_Taiwan_University_logo.svg.png")
     embed.add_field(name="/course schedule", value="設定課表", inline=False)
     embed.add_field(name="/course field", value="設定通識領域", inline=False)
     embed.add_field(name="/course name", value="設定名字", inline=False)
