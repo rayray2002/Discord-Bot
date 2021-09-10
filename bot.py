@@ -249,7 +249,7 @@ async def on_component(ctx: ComponentContext):
         config['schedule'][info[2]] = ','.join(['1' if str(i) in ctx.selected_options else '0' for i in range(15)])
         with open(f'configs/{info[1]}.ini', 'w') as f:
             config.write(f)
-            await ctx.edit('設定完成')
+            await ctx.send('設定完成')
 
     if 'field' in ctx.component['custom_id']:
         # print(ctx.selected_options)
