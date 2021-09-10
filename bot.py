@@ -83,6 +83,7 @@ async def _help(ctx):
                             "National_Taiwan_University_logo.svg/1200px-National_Taiwan_University_logo.svg.png")
     embed.add_field(name="/course schedule", value="設定課表", inline=False)
     embed.add_field(name="/course field", value="設定通識領域", inline=False)
+    embed.add_field(name="/course department", value="設定系所，逗點分格不用空白", inline=False)
     embed.add_field(name="/course name", value="設定名字", inline=False)
     embed.add_field(name="/course profile", value="顯示目前個人資訊", inline=False)
     embed.add_field(name="/course run", value="輸出結果", inline=False)
