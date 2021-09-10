@@ -77,8 +77,8 @@ async def on_message(message):
 @slash.slash(name='help',
              description='How help')
 async def _help(ctx):
-    embed = discord.Embed()
-    embed.set_author(name="正義魔人 - 台大選課小幫手")
+    embed = discord.Embed(title="台大選課小幫手")
+    embed.set_author(name="正義魔人", icon_url=bot.user.avatar_url)
     embed.add_field(name="/course schedule", value="設定課表", inline=False)
     embed.add_field(name="/course field", value="設定通識領域", inline=False)
     embed.add_field(name="/course profile", value="顯示目前個人資訊", inline=False)
