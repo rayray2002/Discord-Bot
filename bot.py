@@ -101,7 +101,7 @@ async def _say(ctx, text):
 @slash.slash(name='show',
              description="Show something")
 async def _show(ctx, text):
-    text = text.lower()
+    text = text[:10].lower()
     for t in text:
         if t == 'a':
             await ctx.send('https://play.pokemonshowdown.com/sprites/ani/unown.gif')
