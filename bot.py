@@ -111,8 +111,8 @@ async def _show(ctx, text):
             await ctx.send('https://play.pokemonshowdown.com/sprites/ani/unown-question.gif')
         elif 'b' <= t <= 'z':
             await ctx.send(f'https://play.pokemonshowdown.com/sprites/ani/unown-{t}.gif')
-        else:
-            await ctx.send(t)
+        # else:
+        #     await ctx.send(t)
         time.sleep(0.1)
 
 
