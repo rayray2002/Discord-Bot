@@ -25,7 +25,8 @@ SERVER_ID = {'poke': 878300201541062656, 'jennifer': 843761765174607882, 'ouo': 
 
 PREFIX = '&'
 bot = commands.Bot(command_prefix=PREFIX, intents=discord.Intents.all())
-slash = SlashCommand(bot, sync_commands=True)
+# slash = SlashCommand(bot, sync_commands=True)
+slash = SlashCommand(bot)
 
 
 @bot.event
@@ -36,7 +37,8 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 
-@slash.slash(name="ping")
+@slash.slash(name="ping",
+             description="ping time")
 async def _ping(ctx):  # Defines a new "context" (ctx) command called "ping."
     await ctx.send(f"{bot.latency * 1000}ms")
 

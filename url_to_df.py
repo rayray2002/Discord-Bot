@@ -39,7 +39,7 @@ def soup_to_df(soup):
     return df
 
 
-def url_to_df(mode='9010', sem='110-1', startrec=0):
+def url_to_df(mode='9010', sem='110-2', startrec=0):
     # get url
     url = ''
     if type(mode) == int:
@@ -95,14 +95,14 @@ def get_field(df):
     return df
 
 
-def get_df(mode='9010', sem='110-1', startrec=0):
+def get_df(mode='9010', sem='110-2', startrec=0):
     df = url_to_df(mode, sem, startrec)
     df = get_time(df)
     df = get_field(df)
     return df
 
 
-def save_csv(mode='系所', sem='110-1'):
+def save_csv(mode='系所', sem='110-2'):
     if mode == '體育':
         df = get_df(mode, sem, 0)
         for i in range(15, 210, 15):
