@@ -1,0 +1,10 @@
+*.log
+new_csv/
+save_csv/
+out/
+configs
+token.txt
+__pycache__/
+*.sh
+img/
+mp3/
